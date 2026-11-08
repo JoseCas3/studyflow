@@ -1,1 +1,30 @@
-{"name":"studyflow","version":"1.0.0","private":true,"scripts":{"dev":"next dev","build":"next build","start":"next start","typecheck":"tsc --noEmit"},"dependencies":{"next":"^16.1.6","react":"^19.2.3","react-dom":"^19.2.3","lucide-react":"^0.468.0"},"devDependencies":{"typescript":"^5","@types/node":"^22","@types/react":"^19","@types/react-dom":"^19"}}
+{
+  "name": "studyflow",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test:smoke": "node --test scripts/smoke.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "next": "^16.1.6",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "prettier": "^3.9.10",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

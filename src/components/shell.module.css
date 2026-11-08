@@ -1,1 +1,221 @@
-.shell{display:flex;min-height:100vh}.sidebar{width:252px;flex-shrink:0;background:#fff;border-right:1px solid #eae8ef;padding:38px 23px 24px;display:flex;flex-direction:column;position:fixed;inset:0 auto 0 0}.logo{font-size:27px;font-weight:800;letter-spacing:-1.3px;display:flex;align-items:center;gap:9px;color:#25213c}.logo>span:first-child{background:#7961d9;color:white;padding:8px;border-radius:12px;display:flex}.dot{color:#7961d9;margin-left:-8px}.label{font-size:10px;font-weight:700;letter-spacing:1.6px;color:#9793a7;margin:48px 12px 16px}.sidebar nav{display:grid;gap:8px}.sidebar nav a{display:flex;align-items:center;gap:12px;padding:13px 14px;color:#787487;border-radius:9px;font-size:13px;font-weight:600}.sidebar nav a:hover{background:#f7f5fc}.sidebar nav .active{background:#eee9fc;color:#7459cd}.note{margin-top:auto;padding:22px 17px;background:#f5f2fc;border-radius:14px;color:#7961c8}.note strong{display:block;font-size:15px;line-height:1.6;margin-top:12px}.note p{font-size:12px;color:#91889f;line-height:1.8}.note a{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;margin-top:20px}.profile{display:flex;gap:11px;align-items:center;padding:24px 5px 0;margin-top:28px;border-top:1px solid #eeedf1}.profile>span{background:#eee8da;color:#9e8654;border-radius:50%;width:36px;height:36px;display:grid;place-items:center}.profile strong{font-size:11px}.profile small{display:block;color:#9c98a7;font-size:10px;margin-top:4px}.content{margin-left:252px;width:calc(100% - 252px)}.topbar{height:78px;background:#fff;border-bottom:1px solid #eae8ef;padding:0 42px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#9791a6}.status{display:flex;align-items:center;gap:7px}.status i{width:6px;height:6px;border-radius:50%;background:#67aa92}.content main{max-width:1400px;margin:auto;padding:38px 42px 52px}.content footer{padding:22px 42px;border-top:1px solid #eae8ef;font-size:10px;color:#aaa4b4;display:flex;justify-content:space-between}@media(min-height:900px){.note{margin-top:100px}}@media(max-width:1050px){.sidebar{width:215px;padding:30px 16px}.content{margin-left:215px;width:calc(100% - 215px)}.content main{padding:30px 24px}.status{display:none}}@media(max-width:700px){.shell{display:block}.sidebar{position:static;width:100%;padding:18px}.logo{font-size:24px}.label,.note,.profile{display:none}.sidebar nav{display:flex;justify-content:space-between;margin-top:20px;gap:3px}.sidebar nav a{font-size:10px;padding:10px 6px;flex-direction:column;gap:6px}.content{margin:0;width:100%}.topbar{height:45px;padding:0 20px;font-size:10px}.content main{padding:25px 18px 36px}.content footer{padding:20px 18px;gap:15px}}
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
+.sidebar {
+  width: 252px;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid #eae8ef;
+  padding: 38px 23px 24px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  inset: 0 auto 0 0;
+}
+.logo {
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -1.3px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #25213c;
+}
+.logo > span:first-child {
+  background: #7961d9;
+  color: white;
+  padding: 8px;
+  border-radius: 12px;
+  display: flex;
+}
+.dot {
+  color: #7961d9;
+  margin-left: -8px;
+}
+.label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  color: #9793a7;
+  margin: 48px 12px 16px;
+}
+.sidebar nav {
+  display: grid;
+  gap: 8px;
+}
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  color: #787487;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.sidebar nav a:hover {
+  background: #f7f5fc;
+}
+.sidebar nav .active {
+  background: #eee9fc;
+  color: #7459cd;
+}
+.note {
+  margin-top: auto;
+  padding: 22px 17px;
+  background: #f5f2fc;
+  border-radius: 14px;
+  color: #7961c8;
+}
+.note strong {
+  display: block;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+.note p {
+  font-size: 12px;
+  color: #91889f;
+  line-height: 1.8;
+}
+.note a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+.profile {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  padding: 24px 5px 0;
+  margin-top: 28px;
+  border-top: 1px solid #eeedf1;
+}
+.profile > span {
+  background: #eee8da;
+  color: #9e8654;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+}
+.profile strong {
+  font-size: 11px;
+}
+.profile small {
+  display: block;
+  color: #9c98a7;
+  font-size: 10px;
+  margin-top: 4px;
+}
+.content {
+  margin-left: 252px;
+  width: calc(100% - 252px);
+}
+.topbar {
+  height: 78px;
+  background: #fff;
+  border-bottom: 1px solid #eae8ef;
+  padding: 0 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #9791a6;
+}
+.status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #67aa92;
+}
+.content main {
+  max-width: 1400px;
+  margin: auto;
+  padding: 38px 42px 52px;
+}
+.content footer {
+  padding: 22px 42px;
+  border-top: 1px solid #eae8ef;
+  font-size: 10px;
+  color: #aaa4b4;
+  display: flex;
+  justify-content: space-between;
+}
+@media (min-height: 900px) {
+  .note {
+    margin-top: 100px;
+  }
+}
+@media (max-width: 1050px) {
+  .sidebar {
+    width: 215px;
+    padding: 30px 16px;
+  }
+  .content {
+    margin-left: 215px;
+    width: calc(100% - 215px);
+  }
+  .content main {
+    padding: 30px 24px;
+  }
+  .status {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  .shell {
+    display: block;
+  }
+  .sidebar {
+    position: static;
+    width: 100%;
+    padding: 18px;
+  }
+  .logo {
+    font-size: 24px;
+  }
+  .label,
+  .note,
+  .profile {
+    display: none;
+  }
+  .sidebar nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 3px;
+  }
+  .sidebar nav a {
+    font-size: 10px;
+    padding: 10px 6px;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .content {
+    margin: 0;
+    width: 100%;
+  }
+  .topbar {
+    height: 45px;
+    padding: 0 20px;
+    font-size: 10px;
+  }
+  .content main {
+    padding: 25px 18px 36px;
+  }
+  .content footer {
+    padding: 20px 18px;
+    gap: 15px;
+  }
+}

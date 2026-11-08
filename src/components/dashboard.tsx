@@ -1,26 +1,286 @@
 'use client';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, Check, CheckCheck, Clock3, ListTodo, BookOpen, Plus, Timer } from 'lucide-react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  CheckCheck,
+  Clock3,
+  ListTodo,
+  BookOpen,
+  Plus,
+  Timer,
+} from 'lucide-react';
 import { useStudy } from './store';
 import { subjects, type Task } from '@/lib/data';
 export function DataState() {
   const { loading, error, retry } = useStudy();
-  if (loading) return <div className="loading" role="status"><span className="spinner"/>Cargando tu espacio…</div>;
-  if (error) return <div role="alert" className="error-box"><p>{error}</p><button className="button secondary" onClick={retry}>Volver a intentar</button></div>;
+  if (loading)
+    return (
+      <div className="loading" role="status">
+        <span className="spinner" />
+        Cargando tu espacio…
+      </div>
+    );
+  if (error)
+    return (
+      <div role="alert" className="error-box">
+        <p>{error}</p>
+        <button className="button secondary" onClick={retry}>
+          Volver a intentar
+        </button>
+      </div>
+    );
   return null;
 }
 export function TaskRow({ task }: { task: Task }) {
-  const { toggle } = useStudy(); const subject = subjects.find(s => s.id === task.subject)!;
-  return <div className={`task-row ${task.done ? 'completed' : ''}`}><button className="checkbox" aria-label={`${task.done ? 'Marcar pendiente' : 'Completar'}: ${task.title}`} aria-pressed={task.done} onClick={() => toggle(task.id)}>{task.done ? <Check size={13}/> : null}</button><div className="task-info"><span className="task-title">{task.title}</span><small><i style={{ background: subject.color }}/>{subject.name}{task.due ? ` · ${new Date(task.due + 'T12:00:00').toLocaleDateString('es-GT', { day: 'numeric', month: 'short' })}` : ''}</small></div><span className={`priority ${task.priority.toLowerCase()}`}>{task.priority}</span></div>;
+  const { toggle } = useStudy();
+  const subject = subjects.find((s) => s.id === task.subject)!;
+  return (
+    <div className={`task-row ${task.done ? 'completed' : ''}`}>
+      <button
+        className="checkbox"
+        aria-label={`${task.done ? 'Marcar pendiente' : 'Completar'}: ${task.title}`}
+        aria-pressed={task.done}
+        onClick={() => toggle(task.id)}
+      >
+        {task.done ? <Check size={13} /> : null}
+      </button>
+      <div className="task-info">
+        <span className="task-title">{task.title}</span>
+        <small>
+          <i style={{ background: subject.color }} />
+          {subject.name}
+          {task.due
+            ? ` · ${new Date(task.due + 'T12:00:00').toLocaleDateString('es-GT', { day: 'numeric', month: 'short' })}`
+            : ''}
+        </small>
+      </div>
+      <span className={`priority ${task.priority.toLowerCase()}`}>
+        {task.priority}
+      </span>
+    </div>
+  );
 }
 export function Dashboard() {
   const { tasks, loading, error } = useStudy();
-  if (loading || error) return <DataState/>;
-  const done = tasks.filter(t => t.done).length; const pending = tasks.filter(t => !t.done); const progress = tasks.length ? Math.round(done / tasks.length * 100) : 0;
-  const stats = [{ label: 'Tareas pendientes', value: pending.length, hint: 'Cada paso cuenta', Icon: ListTodo, tint: 'purple' }, { label: 'Tareas completadas', value: done, hint: '¡Bien hecho, sigue así!', Icon: CheckCheck, tint: 'green' }, { label: 'Materias activas', value: subjects.length, hint: 'Un mundo por descubrir', Icon: BookOpen, tint: 'orange' }];
-  return <><section className="hero"><div><span className="hero-tag"><span/> A TU RITMO, A TU MANERA</span><h2>Grandes metas.<br/>Pequeños pasos.</h2><p>No tienes que hacerlo todo hoy.<br/>Solo necesitas empezar por algo.</p><Link href="/tareas" className="button">Organizar mis tareas <ArrowRight size={16}/></Link></div><div className="hero-art" aria-hidden="true"><span className="orbit orbit-one"/><span className="orbit orbit-two"/><span className="art-spark s1">✧</span><span className="art-spark s2">✦</span><div className="art-card"><div className="art-icon"><BookOpen size={27}/></div><div className="art-line long"/><div className="art-line"/><div className="art-check"><Check size={12}/><span/></div><div className="art-check"><Check size={12}/><span/></div><div className="art-check pale"><span>○</span><span/></div></div><div className="floating-label"><span>✦</span> ¡Tú puedes con esto!</div><div className="floating-check"><Check size={23}/></div></div></section><section className="stats" aria-label="Resumen de estudio">{stats.map(({label,value,hint,Icon,tint}) => <div className="stat panel" key={label}><div className="stat-top"><span>{label}</span><span className={`stat-icon ${tint}`}><Icon size={19}/></span></div><strong>{value.toString().padStart(2,'0')}</strong><small>{hint}</small></div>)}</section><div className="dashboard-grid"><section className="panel"><div className="section-heading"><div><h2>Tu próximo paso</h2><p>Un pendiente menos, una meta más cerca.</p></div><Link href="/tareas" className="text-link">Ver todas <ArrowUpRight size={15}/></Link></div><div className="task-list">{pending.length ? pending.slice(0,3).map(t => <TaskRow key={t.id} task={t}/>) : <div className="empty"><CheckCheck/><p>Todo al día. ¡Disfruta tu avance!</p></div>}</div><Link className="add-task" href="/tareas?nueva=1"><Plus size={15}/> Agregar una nueva tarea</Link></section><section className="panel progress-panel"><div className="section-heading"><div><h2>Tu progreso</h2><p>Cada esfuerzo suma.</p></div><span className="small-icon"><Clock3 size={17}/></span></div><div className="progress-ring" style={{background: `conic-gradient(#8064d9 ${progress}%, #f0ecf8 0)`}}><div><strong>{progress}%</strong><span>completado</span></div></div><p><strong>{done} de {tasks.length}</strong> tareas completadas</p><small>Vas construyendo algo bueno.</small></section></div><div className="section-heading outside"><div><h2>Tus materias</h2><p>Diferentes caminos, las mismas ganas de aprender.</p></div><Link href="/materias" className="text-link">Explorar <ArrowUpRight size={15}/></Link></div><Subjects compact/><section className="focus-banner"><span className="focus-icon"><Timer size={24}/></span><div><h3>Un momento para concentrarte</h3><p>25 minutos pueden hacer una gran diferencia.</p></div><Link href="/enfoque" className="button secondary">Iniciar enfoque <ArrowRight size={15}/></Link></section></>;
+  if (loading || error) return <DataState />;
+  const done = tasks.filter((t) => t.done).length;
+  const pending = tasks.filter((t) => !t.done);
+  const progress = tasks.length ? Math.round((done / tasks.length) * 100) : 0;
+  const stats = [
+    {
+      label: 'Tareas pendientes',
+      value: pending.length,
+      hint: 'Cada paso cuenta',
+      Icon: ListTodo,
+      tint: 'purple',
+    },
+    {
+      label: 'Tareas completadas',
+      value: done,
+      hint: '¡Bien hecho, sigue así!',
+      Icon: CheckCheck,
+      tint: 'green',
+    },
+    {
+      label: 'Materias activas',
+      value: subjects.length,
+      hint: 'Un mundo por descubrir',
+      Icon: BookOpen,
+      tint: 'orange',
+    },
+  ];
+  return (
+    <>
+      <section className="hero">
+        <div>
+          <span className="hero-tag">
+            <span /> A TU RITMO, A TU MANERA
+          </span>
+          <h2>
+            Grandes metas.
+            <br />
+            Pequeños pasos.
+          </h2>
+          <p>
+            No tienes que hacerlo todo hoy.
+            <br />
+            Solo necesitas empezar por algo.
+          </p>
+          <Link href="/tareas" className="button">
+            Organizar mis tareas <ArrowRight size={16} />
+          </Link>
+        </div>
+        <div className="hero-art" aria-hidden="true">
+          <span className="orbit orbit-one" />
+          <span className="orbit orbit-two" />
+          <span className="art-spark s1">✧</span>
+          <span className="art-spark s2">✦</span>
+          <div className="art-card">
+            <div className="art-icon">
+              <BookOpen size={27} />
+            </div>
+            <div className="art-line long" />
+            <div className="art-line" />
+            <div className="art-check">
+              <Check size={12} />
+              <span />
+            </div>
+            <div className="art-check">
+              <Check size={12} />
+              <span />
+            </div>
+            <div className="art-check pale">
+              <span>○</span>
+              <span />
+            </div>
+          </div>
+          <div className="floating-label">
+            <span>✦</span> ¡Tú puedes con esto!
+          </div>
+          <div className="floating-check">
+            <Check size={23} />
+          </div>
+        </div>
+      </section>
+      <section className="stats" aria-label="Resumen de estudio">
+        {stats.map(({ label, value, hint, Icon, tint }) => (
+          <div className="stat panel" key={label}>
+            <div className="stat-top">
+              <span>{label}</span>
+              <span className={`stat-icon ${tint}`}>
+                <Icon size={19} />
+              </span>
+            </div>
+            <strong>{value.toString().padStart(2, '0')}</strong>
+            <small>{hint}</small>
+          </div>
+        ))}
+      </section>
+      <div className="dashboard-grid">
+        <section className="panel">
+          <div className="section-heading">
+            <div>
+              <h2>Tu próximo paso</h2>
+              <p>Un pendiente menos, una meta más cerca.</p>
+            </div>
+            <Link href="/tareas" className="text-link">
+              Ver todas <ArrowUpRight size={15} />
+            </Link>
+          </div>
+          <div className="task-list">
+            {pending.length ? (
+              pending.slice(0, 3).map((t) => <TaskRow key={t.id} task={t} />)
+            ) : (
+              <div className="empty">
+                <CheckCheck />
+                <p>Todo al día. ¡Disfruta tu avance!</p>
+              </div>
+            )}
+          </div>
+          <Link className="add-task" href="/tareas?nueva=1">
+            <Plus size={15} /> Agregar una nueva tarea
+          </Link>
+        </section>
+        <section className="panel progress-panel">
+          <div className="section-heading">
+            <div>
+              <h2>Tu progreso</h2>
+              <p>Cada esfuerzo suma.</p>
+            </div>
+            <span className="small-icon">
+              <Clock3 size={17} />
+            </span>
+          </div>
+          <div
+            className="progress-ring"
+            style={{
+              background: `conic-gradient(#8064d9 ${progress}%, #f0ecf8 0)`,
+            }}
+          >
+            <div>
+              <strong>{progress}%</strong>
+              <span>completado</span>
+            </div>
+          </div>
+          <p>
+            <strong>
+              {done} de {tasks.length}
+            </strong>{' '}
+            tareas completadas
+          </p>
+          <small>Vas construyendo algo bueno.</small>
+        </section>
+      </div>
+      <div className="section-heading outside">
+        <div>
+          <h2>Tus materias</h2>
+          <p>Diferentes caminos, las mismas ganas de aprender.</p>
+        </div>
+        <Link href="/materias" className="text-link">
+          Explorar <ArrowUpRight size={15} />
+        </Link>
+      </div>
+      <Subjects compact />
+      <section className="focus-banner">
+        <span className="focus-icon">
+          <Timer size={24} />
+        </span>
+        <div>
+          <h3>Un momento para concentrarte</h3>
+          <p>25 minutos pueden hacer una gran diferencia.</p>
+        </div>
+        <Link href="/enfoque" className="button secondary">
+          Iniciar enfoque <ArrowRight size={15} />
+        </Link>
+      </section>
+    </>
+  );
 }
 export function Subjects({ compact = false }: { compact?: boolean }) {
-  const { tasks, loading, error } = useStudy(); if (loading || error) return <DataState/>;
-  return <section className={`subjects ${compact ? 'compact' : ''}`} aria-label="Materias">{subjects.map(s => { const own = tasks.filter(t => t.subject === s.id); const done = own.filter(t => t.done).length; return <Link href={`/tareas?materia=${s.id}`} key={s.id} className="subject panel"><span className="subject-symbol" style={{ color: s.color, background: `${s.color}15` }}>{s.icon}</span><ArrowUpRight className="subject-arrow" size={16}/><h3>{s.name}</h3>{!compact ? <p>{s.description}</p> : null}<small>{own.filter(t => !t.done).length} tareas pendientes</small><div className="progress-track"><span style={{ width: `${own.length ? done / own.length * 100 : 0}%`, background: s.color }}/></div>{!compact ? <small>{done} de {own.length} completadas</small> : null}</Link>; })}</section>;
+  const { tasks, loading, error } = useStudy();
+  if (loading || error) return <DataState />;
+  return (
+    <section
+      className={`subjects ${compact ? 'compact' : ''}`}
+      aria-label="Materias"
+    >
+      {subjects.map((s) => {
+        const own = tasks.filter((t) => t.subject === s.id);
+        const done = own.filter((t) => t.done).length;
+        return (
+          <Link
+            href={`/tareas?materia=${s.id}`}
+            key={s.id}
+            className="subject panel"
+          >
+            <span
+              className="subject-symbol"
+              style={{ color: s.color, background: `${s.color}15` }}
+            >
+              {s.icon}
+            </span>
+            <ArrowUpRight className="subject-arrow" size={16} />
+            <h3>{s.name}</h3>
+            {!compact ? <p>{s.description}</p> : null}
+            <small>{own.filter((t) => !t.done).length} tareas pendientes</small>
+            <div className="progress-track">
+              <span
+                style={{
+                  width: `${own.length ? (done / own.length) * 100 : 0}%`,
+                  background: s.color,
+                }}
+              />
+            </div>
+            {!compact ? (
+              <small>
+                {done} de {own.length} completadas
+              </small>
+            ) : null}
+          </Link>
+        );
+      })}
+    </section>
+  );
 }

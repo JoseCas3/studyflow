@@ -67,3 +67,7 @@ Se añadió documentación de instalación, matriz de requisitos, `.env.example`
 El beneficio de la IA fue acelerar la estructura, las vistas y la revisión. El control humano consiste en definir el producto, revisar las decisiones y contrastar la entrega con la rúbrica. La apariencia por sí sola no prueba que una aplicación funcione: por eso se verifican compilación, rutas, respuestas inválidas y acciones en navegador.
 
 Antes de entregar, el estudiante debe poder explicar qué hace `useEffect`, por qué se necesita `'use client'`, dónde se valida una tarea y qué diferencia hay entre guardar datos localmente y en un servidor. Conviene añadir después una reflexión personal sobre lo aprendido y cualquier iteración solicitada durante la revisión.
+
+## Resultado de la publicación
+
+Se publicó https://studyflow-blush-mu.vercel.app en Vercel y se repitieron con éxito las 14 pruebas HTTP en producción. La vinculación automática de GitHub falló porque la cuenta de Vercel requiere una Login Connection a GitHub. Se resolvió publicando directamente los mismos archivos revisados mediante la API de Vercel, sin solicitar ni guardar tokens en el proyecto. El repositorio público conserva las etapas de implementación y la documentación de esta solución. Los pushes futuros necesitarán vinculación Git o una nueva publicación directa.

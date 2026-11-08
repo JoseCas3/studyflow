@@ -3,7 +3,7 @@
 Organizador de estudios construido con Next.js 16, App Router y TypeScript como actividad de Vibe Coding.
 
 - **Repositorio público:** https://github.com/JoseCas3/studyflow
-- **Producción:** pendiente de finalizar el despliegue en Vercel.
+- **Producción:** [https://studyflow-blush-mu.vercel.app](https://studyflow-blush-mu.vercel.app).
 - **Proceso con IA:** [VIBE_CODING.md](VIBE_CODING.md).
 
 ## Ejecutar el proyecto
@@ -95,7 +95,7 @@ Interfaz en español con CSS Modules para la estructura y CSS global para los co
 
 ## Despliegue en Vercel
 
-Importa este repositorio en Vercel, selecciona Next.js, directorio raíz del repositorio, `npm run build` y Node.js 24.x. No necesitas base de datos ni variables obligatorias. Puedes agregar `NEXT_PUBLIC_APP_NAME=StudyFlow` en producción. Publica la rama `main` y verifica las cuatro rutas y la API. Actualiza el enlace de producción de este README después del despliegue.
+Importa este repositorio en Vercel, selecciona Next.js, directorio raíz del repositorio, `npm run build` y Node.js 24.x. No necesitas base de datos ni variables obligatorias. Puedes agregar `NEXT_PUBLIC_APP_NAME=StudyFlow` en producción. Publica la rama `main` y verifica las cuatro rutas y la API. La entrega actual se publicó directamente mediante la API de Vercel desde el mismo código del repositorio. La conexión automática con GitHub requiere agregar una Login Connection en la cuenta de Vercel; por ahora un push por sí solo no publica cambios. El enlace de producción de esta entrega ya está registrado al inicio.
 
 ## Validación
 

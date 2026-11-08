@@ -70,4 +70,4 @@ Los POST de esta prueba no crean registros compartidos: la API no tiene persiste
 
 ## Publicación
 
-El estado final del despliegue y la URL pública se registrarán al completar la publicación en Vercel.
+Aplicación pública: https://studyflow-blush-mu.vercel.app. Vercel confirmó el estado READY en producción, con Next.js 16.4.5. Se volvieron a ejecutar las 14 pruebas HTTP contra esta URL sin autenticación: 14 aprobadas y 0 fallidas. El navegador mostró correctamente el panel publicado. El código desplegado corresponde al commit 019ba3485ffba0a6810b4281f9be4d19c7d867f5; los commits posteriores de documentación registran esta evidencia.

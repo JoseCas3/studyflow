@@ -1,0 +1,25 @@
+# syntax=docker/dockerfile:1
+FROM --platform=$BUILDPLATFORM node:24-bookworm-slim AS build
+WORKDIR /app
+ENV NEXT_TELEMETRY_DISABLED=1
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm npm ci --no-audit --no-fund
+COPY next.config.mjs tsconfig.json next-env.d.ts ./
+COPY src ./src
+RUN NEXT_PUBLIC_APP_NAME=StudyFlow npm run build -- --webpack
+RUN mkdir -p /artifact/app/.next \
+    && cp -a .next/standalone/. /artifact/app/ \
+    && cp -a .next/static /artifact/app/.next/static \
+    && printf '{"type":"module","private":true}\n' > /artifact/package.json
+COPY aws/index.js /artifact/index.js
+FROM --platform=$BUILDPLATFORM node:24-bookworm-slim AS production-dependencies
+WORKDIR /deps
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm npm ci --omit=dev --ignore-scripts --os=linux --cpu=arm64 --libc=glibc --no-audit --no-fund
+FROM build AS package
+RUN rm -rf /artifact/app/node_modules
+COPY --from=production-dependencies /deps/node_modules/ /artifact/app/node_modules/
+# CLI symlinks are unnecessary at runtime and cannot be exported on Windows.
+RUN rm -rf /artifact/app/node_modules/.bin
+FROM scratch AS artifact
+COPY --from=package /artifact/ /

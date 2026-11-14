@@ -1,0 +1,22 @@
+✔ Página / responde 200 (2771.7591ms)
+✔ Página /tareas responde 200 (289.3884ms)
+✔ Página /materias responde 200 (87.9733ms)
+✔ Página /enfoque responde 200 (93.8211ms)
+✔ Una ruta inexistente responde 404 (91.5962ms)
+✔ GET ofrece cuatro tareas iniciales (112.4352ms)
+✔ POST valida, recorta el título y genera un identificador (94.0567ms)
+✔ POST rechaza título vacío (100.0946ms)
+✔ POST rechaza título muy largo (94.8551ms)
+✔ POST rechaza materia desconocida (89.5935ms)
+✔ POST rechaza prioridad inválida (86.7457ms)
+✔ POST rechaza fecha imposible (89.1812ms)
+✔ POST rechaza estado incorrecto (85.538ms)
+✔ POST rechaza JSON malformado (89.525ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4388.0635
